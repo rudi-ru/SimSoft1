@@ -1,26 +1,15 @@
 package pages;
 
-import helpers.PropertyProvider;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
-import static helpers.FirstNameGenerator.getFirstName;
-import static helpers.PostCodeGenerator.getPostCode;
 import static helpers.Wait.waitUntilClickable;
 
 // Класс обработки формы добавления клиента
 public class AddCustomerPage extends BasePage {
-
-    public static final String postCode = getPostCode();
-    public static final String firstName = getFirstName(postCode);
-    public static final String lastName = PropertyProvider.getInstance().getProperty("last.name");
-    public static final String account = firstName + " " + PropertyProvider.getInstance().getProperty("last.name");
-
 
     @FindBy(xpath = "//*[contains(text(), 'Add Customer')]")
     WebElement addCustomer;
@@ -37,11 +26,9 @@ public class AddCustomerPage extends BasePage {
     @FindBy(xpath = "//button[@type='submit' and text()='Add Customer']")
     WebElement addCustomerButton;
 
-
     public AddCustomerPage(WebDriver webDriver) {
         super(webDriver);
     }
-
 
     @Step("Wait until form Add Customer is open")
     public AddCustomerPage waitUntilOpen() {
@@ -51,7 +38,7 @@ public class AddCustomerPage extends BasePage {
     }
 
     @Step("Add Post Code")
-    public AddCustomerPage addPostCode() {
+    public AddCustomerPage addPostCode(String postCode) {
         if (postCodeField.isDisplayed()) {
             postCodeField.sendKeys(postCode);
         }
@@ -59,13 +46,13 @@ public class AddCustomerPage extends BasePage {
     }
 
     @Step("Add First Name")
-    public AddCustomerPage addFirstName() {
+    public AddCustomerPage addFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
         return this;
     }
 
     @Step("Add Last Name")
-    public AddCustomerPage addLastName() {
+    public AddCustomerPage addLastName(String lastName) {
         lastNameField.sendKeys(lastName);
         return this;
     }

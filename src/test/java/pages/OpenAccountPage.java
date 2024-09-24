@@ -3,14 +3,13 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-
-
 import static helpers.Wait.*;
+import static tests.AddCustomerTest.account;
 
 // Создаем новый аккаунт
 public class OpenAccountPage extends BasePage {
 
-    final String xpathUserAccount = "//select[@id='userSelect']/option[text()='" + AddCustomerPage.account + "']";
+    final String xpathUserAccount = "//select[@id='userSelect']/option[text()='" + account + "']";
 
     @FindBy(xpath = "//button[@ng-click='openAccount()']")
     WebElement openAccount;
@@ -20,6 +19,9 @@ public class OpenAccountPage extends BasePage {
 
     @FindBy(xpath = "//select[@id='currency']")
     WebElement currencySelect;
+
+    @FindBy(xpath = "//select[@id='currency']/option[@value='Dollar']")
+    WebElement dollar;
 
     @FindBy(xpath = "//button[@type='submit' and text()='Process']")
     WebElement addProcessButton;
@@ -36,10 +38,10 @@ public class OpenAccountPage extends BasePage {
     }
 
     @Step("Choose added user")
-    public OpenAccountPage chooseUser() {
-        waitUntilVisible(driver, userSelect);
+    public OpenAccountPage chooseUser(String account) {
+        //waitUntilVisible(driver, userSelect);
         userSelect.click();
-        waitThenClick(driver, driver.findElement(By.xpath(xpathUserAccount)));
+        //waitThenClick(driver, driver.findElement(By.xpath(xpathUserAccount)));
         driver.findElement(By.xpath(xpathUserAccount)).click();
         return this;
     }
@@ -47,16 +49,14 @@ public class OpenAccountPage extends BasePage {
     @Step("Choose currency")
     public OpenAccountPage chooseCurrency() {
         currencySelect.click();
-        currencySelect.sendKeys(Keys.DOWN);
-        currencySelect.sendKeys(Keys.ENTER);
+        waitUntilClickable(driver, dollar);
+        dollar.click();
         return this;
     }
-
 
     @Step("Click button Pocess")
     public OpenAccountPage clickProcessButton() {
         addProcessButton.click();
         return this;
     }
-
 }

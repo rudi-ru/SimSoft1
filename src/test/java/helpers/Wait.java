@@ -35,7 +35,6 @@ public class Wait {
         getInstance(driver).wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
-
     public static void waitUntilClickable(WebDriver driver, final WebElement webElement) {
         getInstance(driver).wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
@@ -44,6 +43,4 @@ public class Wait {
         getInstance(driver).wait.until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();
     }
-
-
 }

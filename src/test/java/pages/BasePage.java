@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import pages.elements.BurgerHomeElement;
 
-
 public class BasePage {
     protected final WebDriver driver;
 

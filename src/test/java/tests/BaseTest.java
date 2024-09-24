@@ -8,7 +8,6 @@ import org.testng.annotations.AfterTest;
 import pages.BasePage;
 import pages.elements.BurgerHomeElement;
 
-
 public class BaseTest {
 
     protected WebDriver driver = CommonActions.createDriver();
@@ -25,11 +24,11 @@ public class BaseTest {
         }
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterTest//(alwaysRun = true)
     public void closeBrowser() {
         if (PropertyProvider.getInstance().getProperty("hold.browser.open").equals("false")) {
-            driver.quit();
 
+            driver.quit();
         }
     }
 }

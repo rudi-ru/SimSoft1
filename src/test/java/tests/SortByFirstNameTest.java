@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.CustomerPage;
 
-
 public class SortByFirstNameTest extends BaseTest {
     CustomerPage customerPage = new CustomerPage(driver);
 
@@ -22,16 +21,10 @@ public class SortByFirstNameTest extends BaseTest {
     @Step("Checking and sort accounts")
     @Severity(value = SeverityLevel.CRITICAL)
     public void checkFirstName() throws InterruptedException {
-
-        customerPage
-                .clickCustomerPage()
-                .sortByClickFirstName();
-    }
-
-    @Test
-    @Step("Сhecking that forms are filled out correctly")
-    public void checkForm() {
-        String firstChar = driver.findElement(By.xpath("//tbody")).getText().toLowerCase();
-        Assert.assertTrue(firstChar.startsWith("a"), "Not sorted by alphabet");
+        customerPage.clickCustomerPage();
+        Assert.assertTrue(customerPage.table.isDisplayed(), "Error");
+        String data = customerPage.table.getText().toLowerCase();
+        customerPage.sortByClickFirstName(data);
+        Assert.assertFalse(data.equals(customerPage.table.getText().toLowerCase()), "Not sorted by alphabet");
     }
 }
