@@ -2,17 +2,18 @@ package tests;
 
 
 import helpers.PropertyProvider;
+import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.AddCustomerPage;
 import pages.CustomerPage;
 import pages.OpenAccountPage;
-
 import static helpers.FirstNameGenerator.getFirstName;
 import static helpers.PostCodeGenerator.getPostCode;
 
@@ -32,7 +33,7 @@ public class AddCustomerTest extends BaseTest {
     }
 
     @Test
-    @Step("Creating a new account")
+    @Description("Creating a new account")
     public void addCustomer() throws InterruptedException {
 
         addCustomerPage
@@ -44,11 +45,11 @@ public class AddCustomerTest extends BaseTest {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertTrue(alert.getText().contains("Customer added successfully with customer id"), "Customer not added");
-        alert.accept();
     }
 
     @Test
-    @Step("Select an account, select currency and click Process")
+    @Description("Select an account, select currency and click Process")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void openAccount() throws InterruptedException {
         openAccountPage
                 .waitUntilOpen()
@@ -58,19 +59,29 @@ public class AddCustomerTest extends BaseTest {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertTrue(alert.getText().contains("Account created successfully with account Number"), "Not choosed");
-        alert.accept();
     }
 
     @Test
-    @Step("Сhecking that forms are filled out correctly")
+    @Description("Сhecking that forms are filled out correctly")
     @Severity(value = SeverityLevel.CRITICAL)
     public void openAndCheckForm() {
         customerPage.clickCustomerPage();
 
         customerPage.setTextToSearchCustomer(firstName);
 
-        Assert.assertTrue(customerPage.table.getText().contains(firstName));
-        Assert.assertTrue(customerPage.table.getText().contains(lastName));
-        Assert.assertTrue(customerPage.table.getText().contains(postCode));
+        Assert.assertTrue(customerPage.table.getText().contains(firstName), "Name not found");
+        Assert.assertTrue(customerPage.table.getText().contains(lastName), "Last name not found");
+        Assert.assertTrue(customerPage.table.getText().contains(postCode), "Post code not found");
+    }
+
+    // Принимаем алерты. Если алерт не найден, просто игнорируем ошибку
+    @AfterMethod
+    public void tearDown() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+        } catch (Exception e) {
+
+        }
     }
 }

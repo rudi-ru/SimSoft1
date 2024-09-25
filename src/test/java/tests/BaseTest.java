@@ -24,10 +24,9 @@ public class BaseTest {
         }
     }
 
-    @AfterTest//(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void closeBrowser() {
-        if (PropertyProvider.getInstance().getProperty("hold.browser.open").equals("false")) {
-
+        if (!Boolean.valueOf(PropertyProvider.getInstance().getProperty("hold.browser.open"))) {
             driver.quit();
         }
     }

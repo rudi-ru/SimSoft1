@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
@@ -18,7 +19,7 @@ public class SortByFirstNameTest extends BaseTest {
     }
 
     @Test
-    @Step("Checking and sort accounts")
+    @Description("Checking and sort accounts")
     @Severity(value = SeverityLevel.CRITICAL)
     public void checkFirstName() throws InterruptedException {
         customerPage.clickCustomerPage();

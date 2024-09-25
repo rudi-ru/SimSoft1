@@ -17,9 +17,6 @@ public class CustomerPage extends BasePage {
         super(webDriver);
     }
 
-
-
-
     @FindBy(xpath = "//button[@ng-click='showCust()']")
     WebElement openCustomerButton;
 

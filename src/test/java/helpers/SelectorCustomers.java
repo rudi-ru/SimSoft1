@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 // Выбираем из списка имена и вычисляем среднее арифметическое длин имён, после возвращаем список неугодных
 public class SelectorCustomers {
+
     public static List<String> customersRemover(String list){
         List<String> names = takeNames(list);
 

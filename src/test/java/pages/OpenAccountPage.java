@@ -39,9 +39,7 @@ public class OpenAccountPage extends BasePage {
 
     @Step("Choose added user")
     public OpenAccountPage chooseUser(String account) {
-        //waitUntilVisible(driver, userSelect);
         userSelect.click();
-        //waitThenClick(driver, driver.findElement(By.xpath(xpathUserAccount)));
         driver.findElement(By.xpath(xpathUserAccount)).click();
         return this;
     }
