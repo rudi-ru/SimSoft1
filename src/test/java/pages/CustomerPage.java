@@ -3,11 +3,9 @@ package pages;
 import helpers.SelectorCustomers;
 import helpers.Wait;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerPage extends BasePage {
@@ -31,9 +29,6 @@ public class CustomerPage extends BasePage {
 
     @FindBy(xpath = "//tbody")
     public WebElement table;
-
-    By deleted = By.xpath("//td[@class='ng-binding'  and text()='Harry'] | //td[@class='ng-binding' and text()='Albus']");
-    public List<WebElement> deletedElement = driver.findElements(deleted);
 
     @Step("Open Customers")
     public CustomerPage clickCustomerPage() {
@@ -67,7 +62,7 @@ public class CustomerPage extends BasePage {
     }
 
     @Step("Checking if the table is sorted by name")
-    public  boolean sortedByAlphabet(String data) {
+    public boolean sortedByAlphabet(String data) {
         return SelectorCustomers.takeNames(table.getText()).stream()
                 .map(String::toLowerCase)
                 .collect(Collectors.toList())
